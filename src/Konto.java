@@ -51,6 +51,7 @@ public class Konto {
         }
         this.kontoart = kontoart;
 
+        //Nur zum Überprüfen
         auszug();
         System.out.println(kontoart + " wurde erfolgreich erstellt");
     }
