@@ -31,16 +31,29 @@ public class Kontoverwaltung_GUI {
 
     ArrayList<Konto> kontenValues = new ArrayList<Konto>();
 
-    public void createNewFrame(){
+    public void createNewFrame(String kontonummer){
         JFrame f = new JFrame("frame");
 
+        //set layout
         f.setLayout(new GridLayout(7,3));
-        // create a label
-        JLabel labelOwner = new JLabel("Kontoart: ");
-        JLabel labelOwnerText = new JLabel("Kontoinhaber: ");
 
-        f.add(labelOwnerText);
-        f.add(labelOwner);
+        // create a label
+        JLabel labelKontoart = new JLabel("Kontoart: ");
+        JLabel labelKontoinhaber = new JLabel("Kontoinhaber: ");
+        JLabel labelBankleitzahl = new JLabel("Bankleitzahl: ");
+        JLabel labelKontonummer = new JLabel("Kontonummer: ");
+        JLabel labelUeberziehungsrahmen = new JLabel("Ueberziehungsrahmen: ");
+        JLabel labelKontofuerungsgebuehren = new JLabel("Kontofuerungsgebuehren: ");
+        JLabel labelKontostand = new JLabel("Kontostand: ");
+
+        //add them labels
+        f.add(labelKontoart);
+        f.add(labelKontoinhaber);
+        f.add(labelBankleitzahl);
+        f.add(labelKontonummer);
+        f.add(labelUeberziehungsrahmen);
+        f.add(labelKontofuerungsgebuehren);
+        f.add(labelKontostand);
 
         // setsize of dialog
         f.setSize(400, 400);
@@ -76,19 +89,19 @@ public class Kontoverwaltung_GUI {
                     Girokonto girokonto = new Girokonto();
                     girokonto.anlegen(kontoInhaber, bankleitzahl, kontonummer, ueberziehungsrahmen, kontofuerungsgebuehren, kontostand, kontoart);
                     kontenValues.add(girokonto);
-                    model.addElement(girokonto.getKontoinhaber() + " ("+girokonto.getKontoart()+ ")");
+                    model.addElement(girokonto.getKontonummer());
 
                 } else if(kontoart.equals("Sparkonto")){
                     Sparkonto sparkonto = new Sparkonto();
                     sparkonto.anlegen(kontoInhaber, bankleitzahl, kontonummer, ueberziehungsrahmen, kontofuerungsgebuehren, kontostand, kontoart);
                     kontenValues.add(sparkonto);
-                    model.addElement(sparkonto.getKontoinhaber() + " ("+sparkonto.getKontoart()+ ")");
+                    model.addElement(sparkonto.getKontonummer());
 
                 } else if(kontoart.equals("Kreditkonto")){
                     Kreditkonto kreditkonto = new Kreditkonto();
                     kreditkonto.anlegen(kontoInhaber, bankleitzahl, kontonummer, ueberziehungsrahmen, kontofuerungsgebuehren, kontostand, kontoart);
                     kontenValues.add(kreditkonto);
-                    model.addElement(kreditkonto.getKontoinhaber() + " ("+kreditkonto.getKontoart()+ ")");
+                    model.addElement(kreditkonto.getKontonummer());
 
                 } else {
                     //Hier irgendwas mit NullpointerExc. womit er nicht kann
@@ -96,7 +109,7 @@ public class Kontoverwaltung_GUI {
 
             }
         });
-        
+
         //Wenn auf listeintrag gecklickt
         konten.addListSelectionListener(new ListSelectionListener() {
 
@@ -109,7 +122,7 @@ public class Kontoverwaltung_GUI {
                 //Sicherung, dadurch das mir valueChanged immer 2 mal den Frame aufmacht (Warum? IDK!)
                 if (!e.getValueIsAdjusting()) {
                     // Create and show the dialog
-                    createNewFrame();
+                    createNewFrame(konten.getSelectedValue().toString());
                 }
 
             }
